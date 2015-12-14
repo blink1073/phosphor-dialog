@@ -105,7 +105,7 @@ interface IButtonItem {
 export
 const okButton: IButtonItem = {
   text: 'OK',
-  className: 'p-Dialog-ok-button'
+  className: OK_BUTTON_CLASS
 }
 
 
@@ -115,7 +115,7 @@ const okButton: IButtonItem = {
 export
 const cancelButton: IButtonItem = {
   text: 'Cancel',
-  className: 'p-Dialog-cancel-button'
+  className: CANCEL_BUTTON_CLASS
 }
 
 

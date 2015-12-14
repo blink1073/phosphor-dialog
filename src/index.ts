@@ -29,42 +29,42 @@ import './index.css';
 /**
  * The class name added to Dialog instances.
  */
-const DIALOG_CLASS = 'jp-Dialog';
+const DIALOG_CLASS = 'p-Dialog';
 
 /**
  * The class name added to Dialog content node.
  */
-const CONTENT_CLASS = 'jp-Dialog-content';
+const CONTENT_CLASS = 'p-Dialog-content';
 
 /**
  * The class name added to Dialog header node.
  */
-const HEADER_CLASS = 'jp-Dialog-header';
+const HEADER_CLASS = 'p-Dialog-header';
 
 /**
  * The class name added to Dialog body node.
  */
-const BODY_CLASS = 'jp-Dialog-body';
+const BODY_CLASS = 'p-Dialog-body';
 
 /**
  * The class name added to Dialog content node.
  */
-const FOOTER_CLASS = 'jp-Dialog-footer';
+const FOOTER_CLASS = 'p-Dialog-footer';
 
 /**
  * The class name added to Dialog button nodes.
  */
-const BUTTON_CLASS = 'jp-Dialog-button';
+const BUTTON_CLASS = 'p-Dialog-button';
 
 /**
  * The class name added to Dialog OK buttons.
  */
-const OK_BUTTON_CLASS = 'jp-Dialog-ok-button';
+const OK_BUTTON_CLASS = 'p-Dialog-ok-button';
 
 /**
  * The class name added to Dialog Cancel buttons.
  */
-const CANCEL_BUTTON_CLASS = 'jp-Dialog-cancel-button';
+const CANCEL_BUTTON_CLASS = 'p-Dialog-cancel-button';
 
 
 /**
@@ -105,7 +105,7 @@ interface IButtonItem {
 export
 const okButton: IButtonItem = {
   text: 'OK',
-  className: 'jp-Dialog-ok-button'
+  className: 'p-Dialog-ok-button'
 }
 
 
@@ -115,7 +115,7 @@ const okButton: IButtonItem = {
 export
 const cancelButton: IButtonItem = {
   text: 'Cancel',
-  className: 'jp-Dialog-cancel-button'
+  className: 'p-Dialog-cancel-button'
 }
 
 

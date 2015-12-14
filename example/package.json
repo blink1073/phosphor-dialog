@@ -1,0 +1,29 @@
+{
+  "private": true,
+  "name": "phosphor-dialog-example",
+  "version": "0.1.0",
+  "main": "index.js",
+  "dependencies": {
+    "phosphor-dialog": "file:..",
+    "phosphor-splitpanel": "^1.0.0-beta.0",
+    "steal": "^0.12.7"
+  },
+  "devDependencies": {
+    "http-server": "^0.8.5",
+    "rimraf": "^2.4.4",
+    "typescript": "^1.7.3"
+  },
+  "scripts": {
+    "build": "tsc --project src",
+    "clean": "rimraf build",
+    "postinstall": "npm dedupe",
+    "prepublish": "npm run build",
+    "serve": "http-server -c-1",
+    "update": "npm install --force phosphor-dialog"
+  },
+  "system": {
+    "npmIgnore": [
+      "devDependencies"
+    ]
+  }
+}

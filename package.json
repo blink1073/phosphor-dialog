@@ -47,6 +47,7 @@
     "url": "https://github.com/phosphorjs/phosphor-dialog.git"
   },
   "files": [
+    "lib/*.css",
     "lib/*.d.ts",
     "lib/*.js"
   ],

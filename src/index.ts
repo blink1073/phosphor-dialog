@@ -27,42 +27,42 @@ import './index.css';
 
 
 /**
- * The class name added to Dialog instances.
+ * The class name added to dialog instances.
  */
 const DIALOG_CLASS = 'p-Dialog';
 
 /**
- * The class name added to Dialog content node.
+ * The class name added to dialog content node.
  */
 const CONTENT_CLASS = 'p-Dialog-content';
 
 /**
- * The class name added to Dialog header node.
+ * The class name added to dialog header node.
  */
 const HEADER_CLASS = 'p-Dialog-header';
 
 /**
- * The class name added to Dialog body node.
+ * The class name added to dialog body node.
  */
 const BODY_CLASS = 'p-Dialog-body';
 
 /**
- * The class name added to Dialog content node.
+ * The class name added to dialog content node.
  */
 const FOOTER_CLASS = 'p-Dialog-footer';
 
 /**
- * The class name added to Dialog button nodes.
+ * The class name added to dialog button nodes.
  */
 const BUTTON_CLASS = 'p-Dialog-button';
 
 /**
- * The class name added to Dialog OK buttons.
+ * The class name added to dialog OK buttons.
  */
 const OK_BUTTON_CLASS = 'p-Dialog-ok-button';
 
 /**
- * The class name added to Dialog Cancel buttons.
+ * The class name added to dialog Cancel buttons.
  */
 const CANCEL_BUTTON_CLASS = 'p-Dialog-cancel-button';
 
@@ -100,7 +100,7 @@ interface IButtonItem {
 
 
 /**
- * Define a default "OK" button.
+ * A default "OK" button.
  */
 export
 const okButton: IButtonItem = {
@@ -110,7 +110,7 @@ const okButton: IButtonItem = {
 
 
 /**
- * Define a default "Cancel" button.
+ * A default "Cancel" button.
  */
 export
 const cancelButton: IButtonItem = {
@@ -146,6 +146,18 @@ class Dialog extends Widget {
 
   /**
    * Create a dialog and show it.
+   *
+   * @param title - The top level text for the dialog.
+   *
+   * @param host - The host node for the dialog.
+   *
+   * @param body - The node containing the dialog main body.
+   *
+   * @param buttons - List of button items.  Defaults to using the [[okButton]]
+   *   and the [[cancelButton]].
+   *
+   * @returns The button item that was selected or `null` if the dialog was
+   *   Escaped.
    */
   static showDialog(title: string, host: HTMLElement, body: HTMLElement, buttons?: IButtonItem[]): Promise<IButtonItem>{
     let dialog = new Dialog(title, host, body, buttons);
@@ -154,6 +166,15 @@ class Dialog extends Widget {
 
   /**
    * Construct a new dialog.
+   *
+   * @param title - The top level text for the dialog.
+   *
+   * @param host - The host node for the dialog.
+   *
+   * @param body - The node containing the dialog main body.
+   *
+   * @param buttons - List of button items.  Defaults to using the [[okButton]]
+   *   and the [[cancelButton]].
    */
   constructor(title: string, host: HTMLElement, body: HTMLElement, buttons?: IButtonItem[]) {
     super();
@@ -167,7 +188,8 @@ class Dialog extends Widget {
   /**
    * Show the dialog over the host node.
    *
-   * @returns The button item that was selected or `null` if the dialog was Escaped.
+   * @returns The button item that was selected or `null` if the dialog was
+   *   Escaped.
    */
   show(): Promise<IButtonItem> {
     // Set up the geometry of the dialog.
@@ -263,7 +285,7 @@ class Dialog extends Widget {
     case 27:  // Escape
       this.detach();
       event.preventDefault();
-      this._resolver(void 0);
+      this._resolver(null);
       break;
     }
   }

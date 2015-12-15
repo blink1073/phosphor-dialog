@@ -42,21 +42,41 @@ const CONTENT_CLASS = 'p-Dialog-content';
 const HEADER_CLASS = 'p-Dialog-header';
 
 /**
+ * The class name added to dialog title node.
+ */
+const TITLE_CLASS = 'p-Dialog-title';
+
+/**
+ * The class name added to dialog close icon node.
+ */
+const CLOSE_ICON_CLASS = 'p-Dialog-close';
+
+/**
  * The class name added to dialog body node.
  */
 const BODY_CLASS = 'p-Dialog-body';
 
 /**
- * The class name added to dialog content node.
+ * The class name added to a dialog content node.
  */
 const FOOTER_CLASS = 'p-Dialog-footer';
 
 /**
- * The class name added to dialog button nodes.
+ * The class name added to a dialog button node.
  */
 const BUTTON_CLASS = 'p-Dialog-button';
 
 /**
+ * The class name added to a dialog button icon node.
+ */
+const BUTTON_ICON_CLASS = 'p-Dialog-button-icon';
+
+/**
+ * The class name added to a dialog button text node.
+ */
+const BUTTON_TEXT_CLASS = 'p-Dialog-button-txt';
+
+/*
  * The class name added to dialog OK buttons.
  */
 const OK_BUTTON_CLASS = 'p-Dialog-ok-button';
@@ -120,47 +140,75 @@ const cancelButton: IButtonItem = {
 
 
 /**
+ * The options used to create a dialog.
+ */
+export
+interface IDialogOptions {
+  /**
+   * The tope level text for the dialog (defaults to an empty string).
+   */
+  title?: string;
+
+  /**
+   * The main body element for the dialog or a message to display,
+   * which is wrapped in a <p> tag.
+   */
+  body?: HTMLElement | string;
+
+  /**
+   * The host element for the dialog (defaults to `document.body`).
+   */
+  host?: HTMLElement;
+
+  /**
+   * A list of button times to display (defaults to [[okButton]] and
+   *   [[cancelButton]]).
+   */
+  buttons?: IButtonItem[];
+}
+
+
+/**
  * Create a dialog and show it.
  *
- * @param title - The top level text for the dialog.
- *
- * @param host - The host node for the dialog.
- *
- * @param body - The node containing the dialog main body.
- *
- * @param buttons - List of button items.  Defaults to using the [[okButton]]
- *   and the [[cancelButton]].
+ * @param options - The dialog setup options.
  *
  * @returns The button item that was selected.
  */
 export
-function showDialog(title: string, host: HTMLElement, body: HTMLElement, buttons?: IButtonItem[]): Promise<IButtonItem>{
-  let dialog = createDialog(host);
-  let titleNode = dialog.getElementsByClassName(HEADER_CLASS)[0];
-  titleNode.textContent = title;
-  let bodyNode = dialog.getElementsByClassName(BODY_CLASS)[0];
-  bodyNode.appendChild(body);
-  let footer = dialog.getElementsByClassName(FOOTER_CLASS)[0];
-  buttons = buttons || [okButton, cancelButton];
+function showDialog(options: IDialogOptions): Promise<IButtonItem>{
+  let host = options.host || document.body;
+  let buttons = options.buttons || [okButton, cancelButton];
   let buttonNodes = buttons.map(createButton);
+  let dialog = createDialog(options, buttonNodes);
+  host.appendChild(dialog);
+  buttonNodes[0].focus();
 
   return new Promise<IButtonItem>((resolve, reject) => {
-    for (let node of buttonNodes) {
-      footer.appendChild(node);
+    buttonNodes.map(node => {
       node.onclick = (event: Event) => {
-        for (let index = 0; index < buttons.length; index++) {
+        if (node.contains(event.target as HTMLElement)) {
           host.removeChild(dialog);
-          if (buttonNodes[index].contains(event.target as HTMLElement)) {
-            let button = buttons[index];
-            if (button.command && button.command.isEnabled) {
-              button.command.execute(button.commandArgs);
-            }
-            resolve(button);
+          let button = buttons[buttonNodes.indexOf(node)];
+          if (button.command && button.command.isEnabled) {
+            button.command.execute(button.commandArgs);
           }
+          resolve(button);
         }
       }
+    });
+    dialog.onkeydown = (event: KeyboardEvent) => {
+      // Check for escape key
+      if (event.keyCode === 27) {
+        host.removeChild(dialog);
+        resolve(null);
+      }
     }
-    host.appendChild(dialog);
+    let close = dialog.getElementsByClassName(CLOSE_ICON_CLASS)[0];
+    (close as HTMLElement).onclick = () => {
+      host.removeChild(dialog);
+      resolve(null);
+    }
   });
 }
 
@@ -168,22 +216,39 @@ function showDialog(title: string, host: HTMLElement, body: HTMLElement, buttons
 /**
  * Create the dialog node.
  */
-function createDialog(host: HTMLElement): HTMLElement {
+function createDialog(options: IDialogOptions, buttonNodes: HTMLElement[]): HTMLElement {
   // Create the dialog nodes (except for the buttons).
   let node = document.createElement('div');
   let content = document.createElement('div');
   let header = document.createElement('div');
   let body = document.createElement('div');
   let footer = document.createElement('div');
+  let title = document.createElement('span');
+  let close = document.createElement('span');
   node.className = DIALOG_CLASS;
   content.className = CONTENT_CLASS;
   header.className = HEADER_CLASS;
   body.className = BODY_CLASS;
   footer.className = FOOTER_CLASS;
+  title.className = TITLE_CLASS;
+  close.className = CLOSE_ICON_CLASS;
   node.appendChild(content);
   content.appendChild(header);
   content.appendChild(body);
   content.appendChild(footer);
+  header.appendChild(title);
+  header.appendChild(close);
+
+  // Populate the nodes.
+  title.textContent = options.title || '';
+  if (options.body && typeof options.body === 'string') {
+    let span = document.createElement('span');
+    span.innerHTML = options.body as string;
+    body.appendChild(span);
+  } else if (options.body) {
+    body.appendChild(options.body as HTMLElement);
+  }
+  buttonNodes.map(buttonNode => { footer.appendChild(buttonNode); });
   return node;
 }
 
@@ -195,9 +260,11 @@ function createButton(item: IButtonItem): HTMLElement {
   let button = document.createElement('button');
   button.className = BUTTON_CLASS;
   if (item.className) button.classList.add(item.className);
-  let icon = document.createElement('i');
+  let icon = document.createElement('span');
+  icon.className = BUTTON_ICON_CLASS;
   if (item.icon) icon.classList.add(item.icon);
   let text = document.createElement('span');
+  text.className = BUTTON_TEXT_CLASS;
   text.textContent = item.text;
   button.appendChild(icon);
   button.appendChild(text);

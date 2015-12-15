@@ -24,6 +24,7 @@
 .p-Dialog-content {
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
   vertical-align: middle;
 }
 
@@ -41,3 +42,35 @@
 .p-Dialog-button {
   flex: 1 1 auto;
 }
+
+
+.p-Dialog-button-icon {
+  width: 21px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-align: center;
+}
+
+.p-Dialog-button-text {
+  padding-left: 2px;
+  padding-right: 35px;
+}
+
+
+.p-Dialog-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.p-Dialog-title {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.p-Dialog-close {
+  flex: 0 0 auto;
+}
+

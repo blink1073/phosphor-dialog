@@ -32,7 +32,12 @@ function createContent(name: string): Widget {
   button.onclick = () => {
     let userText = document.createElement('textarea');
     userText.value = text.value;
-    showDialog(name, widget.node, userText).then(item => {
+    let options = {
+      title: name,
+      host: widget.node,
+      body: text.value
+    }
+    showDialog(options).then(item => {
       console.log(item);
       if (item && item.text === 'OK') {
         text.value = userText.value;

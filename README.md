@@ -4,7 +4,7 @@ phosphor-dialog
 [![Build Status](https://travis-ci.org/phosphorjs/phosphor-dialog.svg)](https://travis-ci.org/phosphorjs/phosphor-dialog?branch=master)
 [![Coverage Status](https://coveralls.io/repos/phosphorjs/phosphor-dialog/badge.svg?branch=master&service=github)](https://coveralls.io/github/phosphorjs/phosphor-dialog?branch=master)
 
-A Phosphor widget which provides a modal dialog.
+A module which provides a lightweight modal dialog..
 
 [API Docs](http://phosphorjs.github.io/phosphor-dialog/api/)
 
@@ -57,6 +57,19 @@ npm run docs
 
 Navigate to `docs/index.html`.
 
+
+Build Example
+-------------
+
+Follow the source build instructions first.
+
+```bash
+cd example
+npm install
+npm run serve
+```
+
+
 Supported Runtimes
 ------------------
 
@@ -82,3 +95,29 @@ Usage Examples
 
 **Note:** This module is fully compatible with Node/Babel/ES6/ES5. Simply
 omit the type declarations when using a language other than TypeScript.
+
+```typescript
+import {
+  showDialog
+} from 'phosphor-dialog';
+
+let main = document.getElementById('main');
+let button = document.getElementById('my-button');
+let text = document.getElementById('my-textarea') as HTMLTextAreaElement;
+
+button.onclick = () => {
+  let dialogInput = document.createElement('textarea') as HTMLTextAreaElement;
+  dialogInput.value = text.value;
+  let options = {
+    title: name,
+    host: main,
+    body: text.value
+  }
+  showDialog(options).then(item => {
+    console.log(item);
+    if (item && item.text === 'OK') {
+      text.value = dialogInput.value;
+    }
+  });
+}
+```

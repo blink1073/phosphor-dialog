@@ -11,18 +11,6 @@ import {
   ICommand
 } from 'phosphor-command';
 
-import {
-  hitTest
-} from 'phosphor-domutil';
-
-import {
-  Message
-} from 'phosphor-messaging';
-
-import {
-  Widget
-} from 'phosphor-widget';
-
 import './index.css';
 
 

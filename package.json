@@ -1,14 +1,11 @@
 {
   "name": "phosphor-dialog",
   "version": "0.1.0",
-  "description": "A Phosphor widget which provides a modal dialog.",
+  "description": "A module which provides a lightweight modal dialog.",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "dependencies": {
-    "phosphor-command": "^0.5.0",
-    "phosphor-domutil": "^1.2.0",
-    "phosphor-messaging": "^1.0.5",
-    "phosphor-widget": "^1.0.0-beta.2"
+    "phosphor-command": "^0.5.0"
   },
   "devDependencies": {
     "coveralls": "^2.11.4",

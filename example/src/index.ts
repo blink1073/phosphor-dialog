@@ -16,7 +16,7 @@ import {
 } from 'phosphor-splitpanel';
 
 import {
-  Dialog
+  showDialog
 } from 'phosphor-dialog';
 
 
@@ -32,7 +32,7 @@ function createContent(name: string): Widget {
   button.onclick = () => {
     let userText = document.createElement('textarea');
     userText.value = text.value;
-    Dialog.showDialog(name, widget.node, userText).then(item => {
+    showDialog(name, widget.node, userText).then(item => {
       console.log(item);
       if (item && item.text === 'OK') {
         text.value = userText.value;

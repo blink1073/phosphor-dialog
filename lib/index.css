@@ -1,0 +1,76 @@
+/*-----------------------------------------------------------------------------
+| Copyright (c) 2014-2015, PhosphorJS Contributors
+|
+| Distributed under the terms of the BSD 3-Clause License.
+|
+| The full license is in the file LICENSE, distributed with this software.
+|----------------------------------------------------------------------------*/
+.p-Dialog {
+  position: absolute;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  top: 0px;
+  left: 0px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+.p-Dialog-content {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  vertical-align: middle;
+}
+
+
+.p-Dialog-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+}
+
+
+.p-Dialog-button {
+  flex: 1 1 auto;
+}
+
+
+.p-Dialog-button-icon {
+  width: 21px;
+  padding-left: 2px;
+  padding-right: 2px;
+  text-align: center;
+}
+
+.p-Dialog-button-text {
+  padding-left: 2px;
+  padding-right: 35px;
+}
+
+
+.p-Dialog-header {
+  display: flex;
+  flex-direction: row;
+}
+
+.p-Dialog-title {
+  flex: 1 1 auto;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+
+.p-Dialog-close {
+  flex: 0 0 auto;
+}
+
